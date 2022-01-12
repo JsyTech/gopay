@@ -2596,3 +2596,71 @@ type EcommerceRefundAdvance struct {
 	Result          string `json:"result"`            // 垫付回补结果
 	SuccessTime     string `json:"success_time"`      // 垫付回补完成时间
 }
+
+// 电商收付通 查询二级商户账户日终余额Rsp
+type EcommerceFundEnddayBalanceQueryRsp struct {
+	Code     int                              `json:"-"`
+	SignInfo *SignInfo                        `json:"-"`
+	Response *EcommerceFundEnddayBalanceQuery `json:"response,omitempty"`
+	Error    string                           `json:"-"`
+}
+
+type EcommerceFundEnddayBalanceQuery struct {
+	SubMchid        string `json:"sub_mchid"`
+	AvailableAmount int    `json:"available_amount"`
+	PendingAmount   int    `json:"pending_amount"`
+}
+
+// 电商收付通 二级商户余额提现 Rsp
+type EcommerceFundWithdrawRsp struct {
+	Code     int                    `json:"-"`
+	SignInfo *SignInfo              `json:"-"`
+	Response *EcommerceFundWithdraw `json:"response,omitempty"`
+	Error    string                 `json:"-"`
+}
+
+type EcommerceFundWithdraw struct {
+	SubMchid     string `json:"sub_mchid"`
+	WithdrawId   string `json:"withdraw_id"`
+	OutRequestNo string `json:"out_request_no"`
+}
+
+// 电商收付通 电商平台提现 Rsp
+type MerchantFundWithdrawRsp struct {
+	Code     int                   `json:"-"`
+	SignInfo *SignInfo             `json:"-"`
+	Response *MerchantFundWithdraw `json:"response,omitempty"`
+	Error    string                `json:"-"`
+}
+
+type MerchantFundWithdraw struct {
+	WithdrawId   string `json:"withdraw_id"`
+	OutRequestNo string `json:"out_request_no"`
+}
+
+// 电商收付通 电商平台提现查询 Rsp
+type MerchantFundWithdrawQueryRsp struct {
+	Code     int                        `json:"-"`
+	SignInfo *SignInfo                  `json:"-"`
+	Response *MerchantFundWithdrawQuery `json:"response,omitempty"`
+	Error    string                     `json:"-"`
+}
+type MerchantFundWithdrawQuery struct {
+	Status        string `json:"status"`
+	WithdrawId    string `json:"withdraw_id"`
+	OutRequestNo  string `json:"out_request_no"`
+	Amount        int64  `json:"amount"`
+	CreateTime    string `json:"create_time"`
+	UpdateTime    string `json:"update_time"`
+	Reason        string `json:"reason"`
+	Remark        string `json:"remark"`
+	BankMemo      string `json:"bank_memo"`
+	AccountType   string `json:"account_type"`
+	Solution      string `json:"solution"`
+	AccountNumber string `json:"account_number"`
+	AccountBank   string `json:"account_bank"`
+	BankName      string `json:"bank_name"`
+}
+
+// 电商收付通 提现枚举
+type EcommerceWithdrawOrderNoType uint8

@@ -64,6 +64,16 @@ const (
 	v3WithdrawStatusByNo      = "/v3/ecommerce/fund/withdraw/out-request-no/%s" // withdraw_id 商户提现单号查询特约商户提现状态 GET
 	v3WithdrawDownloadErrBill = "/v3/merchant/fund/withdraw/bill-type/%s"       // bill_type 按日下载提现异常文件 GET
 
+	// 电商收付通 商户提现
+	v3EcommerceFundWithdraw                   = "/v3/ecommerce/fund/withdraw"                  // 二级商户余额提现 POST
+	v3MerchantFundWithdraw                    = "/v3/merchant/fund/withdraw"                   // 电商平台提现 POST
+	v3MerchantFundWithdrawQueryByWithdrawId   = "/v3/merchant/fund/withdraw/withdraw-id/%s"    // 电商平台查询提现状态(通过：微信支付提现单号) GET
+	v3MerchantFundWithdrawQueryByOutRequestNo = "/v3/merchant/fund/withdraw/out-request-no/%s" // 电商平台查询提现状态(通过：商户提现单号) GET
+
+	// 订单号类型 1-微信支付提现单号 2-商户提现单号
+	EcommerceWithdrawWithdrawId   EcommerceWithdrawOrderNoType = 1
+	EcommerceWithdrawOutRequestNo EcommerceWithdrawOrderNoType = 2
+
 	// 微信支付分（免确认模式）
 	v3ScoreDirectComplete = "/payscore/serviceorder/direct-complete" // 创单结单合并 POST
 
@@ -193,9 +203,10 @@ const (
 	v3PartnerTransferMerchantDetail = "/v3/partner-transfer/batches/out-batch-no/%s/details/out-detail-no/%s" // out_batch_no、out_detail_no 商家明细单号查询明细单 GET
 
 	// 余额
-	v3MerchantBalance    = "/v3/merchant/fund/balance/%s"       // account_type 查询账户实时余额 GET
-	v3MerchantDayBalance = "/v3/merchant/fund/dayendbalance/%s" // account_type 查询账户日终余额 GET
-	v3EcommerceBalance   = "/v3/ecommerce/fund/balance/%s"      // sub_mchid 查询特约商户账户实时余额 GET
+	v3MerchantBalance                 = "/v3/merchant/fund/balance/%s"        // account_type 查询账户实时余额 GET
+	v3MerchantDayBalance              = "/v3/merchant/fund/dayendbalance/%s"  // account_type 查询账户日终余额 GET
+	v3EcommerceBalance                = "/v3/ecommerce/fund/balance/%s"       // sub_mchid 查询特约商户账户实时余额 GET
+	v3EcommerceFundEnddayBalanceQuery = "/v3/ecommerce/fund/enddaybalance/%s" // 查询二级商户账户日终余额 GET
 
 	// 来账识别API
 	v3MerchantIncomeRecord  = "/v3/merchantfund/merchant/income-records" // 商户银行来账查询 GET
