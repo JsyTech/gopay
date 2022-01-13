@@ -251,9 +251,9 @@ func (a *Client) doAliPay(ctx context.Context, bm gopay.BodyMap, method string, 
 	}
 	param := pubBody.EncodeURLParams()
 	switch method {
-	case "alipay.trade.app.pay", "alipay.fund.auth.order.app.freeze":
+	case "alipay.trade.app.pay", "alipay.fund.auth.order.app.freeze", "alipay.user.agreement.page.sign":
 		return []byte(param), nil
-	case "alipay.trade.wap.pay", "alipay.trade.page.pay", "alipay.user.certify.open.certify", "alipay.user.agreement.page.sign":
+	case "alipay.trade.wap.pay", "alipay.trade.page.pay", "alipay.user.certify.open.certify":
 		if !a.IsProd {
 			return []byte(sandboxBaseUrl + "?" + param), nil
 		}
