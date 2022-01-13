@@ -2664,3 +2664,93 @@ type MerchantFundWithdrawQuery struct {
 
 // 电商收付通 提现枚举
 type EcommerceWithdrawOrderNoType uint8
+
+// 服务商 创建支付分订单 Rsp
+type ScorePartnerOrderCreateRsp struct {
+	Code     int                      `json:"-"`
+	SignInfo *SignInfo                `json:"-"`
+	Response *ScorePartnerOrderCreate `json:"response,omitempty"`
+	Error    string                   `json:"-"`
+}
+
+type ScorePartnerOrderCreate struct {
+	OutOrderNo          string           `json:"out_order_no"`         //商户服务订单号
+	ServiceID           string           `json:"service_id"`           //服务ID
+	Appid               string           `json:"appid"`                //服务商应用ID
+	Mchid               string           `json:"mchid"`                //服务商商户号
+	SubAppid            string           `json:"sub_appid"`            //子商户应用ID
+	SubMchid            string           `json:"sub_mchid"`            //子商户号
+	ServiceIntroduction string           `json:"service_introduction"` //服务信息
+	State               string           `json:"state"`                //服务订单状态
+	StateDescription    string           `json:"state_description"`    //订单状态说明
+	PostPayments        []*PostPayments  `json:"post_payments"`        //后付费项目
+	PostDiscounts       []*PostDiscounts `json:"post_discounts"`       //后付费商户优惠
+	RiskFund            *RiskFund        `json:"risk_fund"`            //订单风险金
+	TimeRange           *TimeRange       `json:"time_range"`           //服务时间段
+	Location            *Location        `json:"location"`             //服务位置
+	Attach              string           `json:"attach"`               //商户数据包
+	NotifyURL           string           `json:"notify_url"`           //商户回调地址
+	OrderID             string           `json:"order_id"`             //微信支付服务订单号
+	Package             string           `json:"package"`              //跳转微信侧数据包
+}
+
+// 服务商 查询支付分订单 Rsp
+type ScorePartnerOrderQueryRsp struct {
+	Code     int                     `json:"-"`
+	SignInfo *SignInfo               `json:"-"`
+	Response *ScorePartnerOrderQuery `json:"response,omitempty"`
+	Error    string                  `json:"-"`
+}
+
+type ScorePartnerOrderQuery struct {
+	OutOrderNo          string           `json:"out_order_no"`         //商户服务订单号
+	ServiceID           string           `json:"service_id"`           //服务ID
+	Appid               string           `json:"appid"`                //服务商应用ID
+	Mchid               string           `json:"mchid"`                //服务商商户号
+	SubAppid            string           `json:"sub_appid"`            //子商户应用ID
+	SubMchid            string           `json:"sub_mchid"`            //子商户号
+	ServiceIntroduction string           `json:"service_introduction"` //服务信息
+	State               string           `json:"state"`                //服务订单状态
+	StateDescription    string           `json:"state_description"`    //订单状态说明
+	PostPayments        []*PostPayments  `json:"post_payments"`        //后付费项目
+	PostDiscounts       []*PostDiscounts `json:"post_discounts"`       //后付费商户优惠
+	RiskFund            *RiskFund        `json:"risk_fund"`            //订单风险金
+	TotalAmount         int              `json:"total_amount"`         //总金额
+	NeedCollection      string           `json:"need_collection"`      //是否需要收款
+	Collection          *Collection      `json:"collection"`           //收款信息
+	TimeRange           *TimeRange       `json:"time_range"`           //服务时间段
+	Location            *Location        `json:"location"`             //服务位置
+	Attach              string           `json:"attach"`               //商户数据包
+	NotifyURL           string           `json:"notify_url"`           //商户回调地址
+	Openid              string           `json:"openid"`               //服务商公众号下的用户标识
+	SubOpenid           string           `json:"sub_openid"`           //子商户公众号下的用户标识
+	OrderID             string           `json:"order_id"`             //微信支付服务订单号
+}
+
+// 服务商 收付通子商户申请绑定支付分服务 Rsp
+type ScorePartnerBindServiceRsp struct {
+	Code     int                      `json:"-"`
+	SignInfo *SignInfo                `json:"-"`
+	Response *ScorePartnerBindService `json:"response,omitempty"`
+	Error    string                   `json:"-"`
+}
+
+type ScorePartnerBindService struct {
+	ServiceID       string `json:"service_id"`        //服务ID
+	Mchid           string `json:"mchid"`             //服务商商户号
+	Appid           string `json:"appid"`             //服务商应用ID
+	SubMchid        string `json:"sub_mchid"`         //子商户商户号
+	SubAppid        string `json:"sub_appid"`         //子商户应用ID
+	OutApplyNo      string `json:"out_apply_no"`      //申请单号
+	ResultNotifyURL string `json:"result_notify_url"` //绑定结果回调通知地址
+	ApplyState      string `json:"apply_state"`       //受理状态
+	RejectReason    string `json:"reject_reason"`     //拒绝原因
+}
+
+//服务商 查询收付通子商户服务绑定结果 Rsp
+type ScorePartnerBindServiceQueryRsp struct {
+	Code     int                      `json:"-"`
+	SignInfo *SignInfo                `json:"-"`
+	Response *ScorePartnerBindService `json:"response,omitempty"`
+	Error    string                   `json:"-"`
+}

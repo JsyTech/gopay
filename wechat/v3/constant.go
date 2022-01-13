@@ -93,6 +93,17 @@ const (
 	v3ScoreOrderPay      = "/v3/payscore/serviceorder/%s/pay"      // out_trade_no 商户发起催收扣款 POST
 	v3ScoreOrderSync     = "/v3/payscore/serviceorder/%s/sync"     // out_trade_no 同步服务订单信息 POST
 
+	// 微信支付分 （公共API） 适用对象：服务商
+	v3ScorePartnerOrderCreate      = "/v3/payscore/partner/serviceorder"                    // 创建支付分订单API POST
+	v3ScorePartnerOrderQuery       = "/v3/payscore/partner/serviceorder"                    // 查询支付分订单API GET
+	v3ScorePartnerOrderCancel      = "/v3/payscore/partner/serviceorder/%s/cancel"          // out_order_no 取消支付分订单 POST
+	v3ScorePartnerOrderModify      = "/v3/payscore/partner/serviceorder/%s/modify"          // out_order_no 修改订单金额  POST
+	v3ScorePartnerOrderComplete    = "/v3/payscore/partner/serviceorder/%s/complete"        // out_order_no 完结支付分订单 POST
+	v3ScorePartnerOrderPay         = "/v3/payscore/partner/serviceorder/%s/pay"             // out_order_no 商户发起催收扣款 POST
+	v3ScorePartnerOrderSync        = "/v3/payscore/partner/serviceorder/%s/sync"            // out_order_no 同步订单信息 POST
+	v3ScorePartnerBindService      = "/v3/payscore/partner/service-account-applications"    // 收付通子商户申请绑定支付分服务 POST
+	v3ScorePartnerBindServiceQuery = "/v3/payscore/partner/service-account-applications/%s" // out_apply_no 查询收付通子商户服务绑定结果 GET
+
 	// 微信先享卡
 	v3CardPre     = "/v3/discount-card/cards"                     // 预受理领卡请求 POST
 	v3CardAddUser = "/v3/discount-card/cards/%s/add-user-records" // out_card_code 增加用户记录 POST
