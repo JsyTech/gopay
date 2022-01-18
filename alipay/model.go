@@ -365,7 +365,8 @@ type TradeOrderSettleResponse struct {
 
 type TradeOrderSettle struct {
 	ErrorResponse
-	TradeNo string `json:"trade_no,omitempty"`
+	TradeNo  string `json:"trade_no,omitempty"`
+	SettleNo string `json:"settle_no,omitempty"`
 }
 
 // ===================================================
