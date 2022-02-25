@@ -106,8 +106,8 @@ func (c *ClientV3) V3Apply4SubModifySettlement(ctx context.Context, bm gopay.Bod
 	); err != nil {
 		return nil, err
 	}
-
 	uri := fmt.Sprintf(v3Apply4SubModifySettlement, bm.Get("sub_mchid"))
+	bm.Remove("sub_mchid")
 
 	authorization, err := c.authorization(MethodPost, uri, bm)
 	if err != nil {
