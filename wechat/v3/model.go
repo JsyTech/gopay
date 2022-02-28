@@ -2754,3 +2754,82 @@ type ScorePartnerBindServiceQueryRsp struct {
 	Response *ScorePartnerBindService `json:"response,omitempty"`
 	Error    string                   `json:"-"`
 }
+
+type PersonalBanking struct {
+	TotalCount int `json:"total_count"`
+	Count      int `json:"count"`
+	Data       []*struct {
+		BankAlias       string `json:"bank_alias"`
+		BankAliasCode   string `json:"bank_alias_code"`
+		AccountBank     string `json:"account_bank"`
+		AccountBankCode int    `json:"account_bank_code"`
+		NeedBankBranch  bool   `json:"need_bank_branch"`
+	} `json:"data"`
+	Offset int `json:"offset"`
+	Links  *struct {
+		Next string `json:"next"`
+		Prev string `json:"prev"`
+		Self string `json:"self"`
+	} `json:"links"`
+}
+
+// 查询支持个人业务的银行列表 Rsp
+type PersonalBankingRsp struct {
+	Code     int              `json:"-"`
+	SignInfo *SignInfo        `json:"-"`
+	Response *PersonalBanking `json:"response,omitempty"`
+	Error    string           `json:"-"`
+}
+
+type CorporateBanking struct {
+	TotalCount int `json:"total_count"`
+	Count      int `json:"count"`
+	Data       []*struct {
+		BankAlias       string `json:"bank_alias"`
+		BankAliasCode   string `json:"bank_alias_code"`
+		AccountBank     string `json:"account_bank"`
+		AccountBankCode int    `json:"account_bank_code"`
+		NeedBankBranch  bool   `json:"need_bank_branch"`
+	} `json:"data"`
+	Offset int `json:"offset"`
+	Links  *struct {
+		Next string `json:"next"`
+		Prev string `json:"prev"`
+		Self string `json:"self"`
+	} `json:"links"`
+}
+
+// 查询支持对公业务的银行列表结果 Rsp
+type CorporateBankingRsp struct {
+	Code     int               `json:"-"`
+	SignInfo *SignInfo         `json:"-"`
+	Response *CorporateBanking `json:"response,omitempty"`
+	Error    string            `json:"-"`
+}
+
+type BanksBranches struct {
+	TotalCount int `json:"total_count"`
+	Count      int `json:"count"`
+	Data       []*struct {
+		BankBranchName string `json:"bank_branch_name"`
+		BankBranchID   string `json:"bank_branch_id"`
+	} `json:"data"`
+	Offset int `json:"offset"`
+	Links  *struct {
+		Next string `json:"next"`
+		Prev string `json:"prev"`
+		Self string `json:"self"`
+	} `json:"links"`
+	AccountBank     string `json:"account_bank"`
+	AccountBankCode int    `json:"account_bank_code"`
+	BankAlias       string `json:"bank_alias"`
+	BankAliasCode   string `json:"bank_alias_code"`
+}
+
+// 查询支行列表 Rsp
+type BanksBranchesRsp struct {
+	Code     int            `json:"-"`
+	SignInfo *SignInfo      `json:"-"`
+	Response *BanksBranches `json:"response,omitempty"`
+	Error    string         `json:"-"`
+}
