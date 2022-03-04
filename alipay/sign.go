@@ -39,6 +39,30 @@ var allowSignatureAlgorithm = map[string]bool{
 	"SHA512-RSAPSS": true,
 }
 
+type SignProvider interface {
+	GetSign() string
+	GetAlipayCertSn() string
+	SetSignData(signData string)
+}
+
+type SignBase struct {
+	AlipayCertSn string `json:"alipay_cert_sn,omitempty"`
+	SignData     string `json:"-"`
+	Sign         string `json:"sign"`
+}
+
+func (s *SignBase) GetSign() string {
+	return s.Sign
+}
+
+func (s *SignBase) GetAlipayCertSn() string {
+	return s.AlipayCertSn
+}
+
+func (s *SignBase) SetSignData(signData string) {
+	s.SignData = signData
+}
+
 /*
 Q：使用公钥证书签名方式下，为什么开放平台网关的响应报文需要携带支付宝公钥证书SN（alipay_cert_sn）？
 **

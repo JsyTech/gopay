@@ -190,15 +190,22 @@ func (a *Client) doAliPaySelf(ctx context.Context, bm gopay.BodyMap, method stri
 }
 
 // 向支付宝发送请求
-func (a *Client) doAliPay(ctx context.Context, bm gopay.BodyMap, method string, authToken ...string) (bs []byte, err error) {
+func (a *Client) doAliPay(ctx context.Context, bm gopay.BodyMap, method string, isCloudSale ...bool) (bs []byte, err error) {
 	var (
 		bodyStr, url string
 		bodyBs       []byte
 		aat          string
+		at           string
 	)
 	if bm != nil {
 		aat = bm.GetString("app_auth_token")
 		bm.Remove("app_auth_token")
+
+		if method == "alipay.user.info.share" {
+			at = bm.Get("auth_token")
+			bm.Remove("auth_token")
+		}
+
 		if bodyBs, err = json.Marshal(bm); err != nil {
 			return nil, fmt.Errorf("json.Marshal：%w", err)
 		}
@@ -226,6 +233,11 @@ func (a *Client) doAliPay(ctx context.Context, bm gopay.BodyMap, method string, 
 	if a.location != nil {
 		pubBody.Set("timestamp", time.Now().In(a.location).Format(util.TimeLayout))
 	}
+
+	if len(isCloudSale) != 0 && isCloudSale[0] {
+		pubBody.Set("timestamp", fmt.Sprintf("%d", time.Now().UnixMilli()))
+	}
+
 	if a.NotifyUrl != util.NULL {
 		pubBody.Set("notify_url", a.NotifyUrl)
 	}
@@ -235,9 +247,11 @@ func (a *Client) doAliPay(ctx context.Context, bm gopay.BodyMap, method string, 
 	if aat != util.NULL {
 		pubBody.Set("app_auth_token", aat)
 	}
-	if method == "alipay.user.info.share" {
-		pubBody.Set("auth_token", authToken[0])
+
+	if at != util.NULL {
+		pubBody.Set("auth_token", at)
 	}
+
 	if bodyStr != util.NULL {
 		pubBody.Set("biz_content", bodyStr)
 	}
@@ -250,6 +264,7 @@ func (a *Client) doAliPay(ctx context.Context, bm gopay.BodyMap, method string, 
 		xlog.Debugf("Alipay_Request: %s", pubBody.JsonBody())
 	}
 	param := pubBody.EncodeURLParams()
+
 	switch method {
 	case "alipay.trade.app.pay", "alipay.fund.auth.order.app.freeze", "alipay.user.agreement.page.sign":
 		return []byte(param), nil
@@ -260,9 +275,14 @@ func (a *Client) doAliPay(ctx context.Context, bm gopay.BodyMap, method string, 
 		return []byte(baseUrl + "?" + param), nil
 	default:
 		httpClient := xhttp.NewClient()
-		url = baseUrlUtf8
-		if !a.IsProd {
-			url = sandboxBaseUrlUtf8
+		if len(isCloudSale) != 0 && isCloudSale[0] {
+			pubBody.Set("timestamp", fmt.Sprintf("%d", time.Now().UnixMilli()))
+			url = cloudSaleBaseUrlUtf8
+		} else {
+			url = baseUrlUtf8
+			if !a.IsProd {
+				url = sandboxBaseUrlUtf8
+			}
 		}
 		res, bs, err := httpClient.Type(xhttp.TypeForm).Post(url).SendString(param).EndBytes(ctx)
 		if err != nil {
@@ -306,5 +326,25 @@ func (a *Client) checkPublicParam(bm gopay.BodyMap) {
 	}
 	if bm.GetString("app_auth_token") == "" && a.AppAuthToken != util.NULL {
 		bm.Set("app_auth_token", a.AppAuthToken)
+	}
+}
+
+func (a *Client) doAndParse(ctx context.Context, in gopay.BodyMap, out interface{}, method string, isCloudSale ...bool) (bs []byte, err error) {
+	if bs, err = a.doAliPay(ctx, in, method, isCloudSale...); err != nil {
+		return
+	}
+
+	if err = json.Unmarshal(bs, &out); err != nil {
+		return
+	}
+
+	if signProvider, ok := out.(SignProvider); ok {
+		signData, signDataErr := a.getSignData(bs, signProvider.GetAlipayCertSn())
+		signProvider.SetSignData(signData)
+		err = a.autoVerifySignByCert(signProvider.GetSign(), signData, signDataErr)
+		return
+	} else {
+		err = fmt.Errorf("in(%T) is not a SignProvider, thus the result is not verified.", in)
+		return
 	}
 }

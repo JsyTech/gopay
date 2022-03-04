@@ -2,10 +2,11 @@ package alipay
 
 const (
 	// URL
-	baseUrl            = "https://openapi.alipay.com/gateway.do"
-	sandboxBaseUrl     = "https://openapi.alipaydev.com/gateway.do"
-	baseUrlUtf8        = "https://openapi.alipay.com/gateway.do?charset=utf-8"
-	sandboxBaseUrlUtf8 = "https://openapi.alipaydev.com/gateway.do?charset=utf-8"
+	baseUrl              = "https://openapi.alipay.com/gateway.do"
+	sandboxBaseUrl       = "https://openapi.alipaydev.com/gateway.do"
+	baseUrlUtf8          = "https://openapi.alipay.com/gateway.do?charset=utf-8"
+	sandboxBaseUrlUtf8   = "https://openapi.alipaydev.com/gateway.do?charset=utf-8"
+	cloudSaleBaseUrlUtf8 = "https://cloudsaleapi.alipay-eco.com/api/gateway.do?charset=utf-8"
 
 	LocationShanghai          = "Asia/Shanghai"
 	PKCS1            PKCSType = 1 // 非Java
@@ -64,13 +65,6 @@ type FundBillListInfo struct {
 type UserPhone struct {
 	ErrorResponse
 	Mobile string `json:"mobile,omitempty"`
-}
-
-type ErrorResponse struct {
-	Code    string `json:"code"`
-	Msg     string `json:"msg"`
-	SubCode string `json:"sub_code,omitempty"`
-	SubMsg  string `json:"sub_msg,omitempty"`
 }
 
 // ===================================================
@@ -2079,4 +2073,66 @@ type FundTransPagePay struct {
 	OutBizNo string `json:"out_biz_no"`
 	OrderID  string `json:"order_id,omitempty"`
 	Status   string `json:"status"`
+}
+
+type CloudSaleApiPayRsp struct {
+	SignBase
+	ErrorResponse
+	MerchantAppId string `json:"merchant_app_id"`
+	OutTradeNo    string `json:"out_trade_no"`
+	TotalAmount   string `json:"total_amount"`
+	PayResult     string `json:"pay_result"`
+	TradeNo       string `json:"trade_no"`
+	ReceiptAmount string `json:"receipt_amount"`
+	PaidAmount    string `json:"paid_amount"`
+	BuyerLogonId  string `json:"buyer_logon_id"`
+	GmtPayment    string `json:"gmt_payment"`
+}
+
+type CloudsaleApiPayCancelRsp struct {
+	SignBase
+	ErrorResponse
+	MerchantAppId string `json:"merchant_app_id"`
+	OutTradeNo    string `json:"out_trade_no"`
+	TotalAmount   string `json:"total_amount"`
+	TradeNo       string `json:"trade_no"`
+	ReceiptAmount string `json:"receipt_amount"`
+	PaidAmount    string `json:"paid_amount"`
+	BuyerLogonId  string `json:"buyer_logon_id"`
+	GmtPayment    string `json:"gmt_payment"`
+}
+
+type CloudsaleApiRefundRsp struct {
+	SignBase
+	ErrorResponse
+
+	MerchantAppId string `json:"merchant_app_id"`
+	OutTradeNo    string `json:"out_trade_no"`
+	SendBackFee   string `json:"send_back_fee"`
+	RefundFee     string `json:"refund_fee"`
+}
+
+type CloudsaleApiPayQueryRsp struct {
+	SignBase
+	ErrorResponse
+
+	MerchantAppId string `json:"merchant_app_id"`
+	OutTradeNo    string `json:"out_trade_no"`
+	BizId         string `json:"biz_id"`
+	TradeNo       string `json:"trade_no"`
+	TotalAmount   string `json:"total_amount"`
+	State         string `json:"state"`
+	ReceiptAmount string `json:"receipt_amount"`
+	PaidAmount    string `json:"paid_amount"`
+	UserId        string `json:"user_id"`
+	GmtPayment    string `json:"gmt_payment"`
+	OrderDetail   []struct {
+		TradeNo       string `json:"trade_no"`
+		OrderType     string `json:"order_type"`
+		TotalAmount   string `json:"total_amount"`
+		UserId        string `json:"user_id"`
+		ReceiptAmount string `json:"receipt_amount"`
+		PaidAmount    string `json:"paid_amount"`
+		GmtPayment    string `json:"gmt_payment"`
+	} `json:"order_detail"`
 }
