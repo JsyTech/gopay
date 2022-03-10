@@ -2716,7 +2716,7 @@ type ScorePartnerOrderQuery struct {
 	PostDiscounts       []*PostDiscounts `json:"post_discounts"`       //后付费商户优惠
 	RiskFund            *RiskFund        `json:"risk_fund"`            //订单风险金
 	TotalAmount         int              `json:"total_amount"`         //总金额
-	NeedCollection      string           `json:"need_collection"`      //是否需要收款
+	NeedCollection      bool             `json:"need_collection"`      //是否需要收款
 	Collection          *Collection      `json:"collection"`           //收款信息
 	TimeRange           *TimeRange       `json:"time_range"`           //服务时间段
 	Location            *Location        `json:"location"`             //服务位置
