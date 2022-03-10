@@ -32,7 +32,7 @@ func (c *ClientV3) V3ScorePartnerCreate(ctx context.Context, bm gopay.BodyMap) (
 		wxRsp.Error = string(bs)
 		return wxRsp, nil
 	}
-	return nil, c.verifySyncSign(si)
+	return wxRsp, c.verifySyncSign(si)
 }
 
 // 查询支付分订单API
