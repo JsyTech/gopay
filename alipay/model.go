@@ -2077,62 +2077,74 @@ type FundTransPagePay struct {
 
 type CloudSaleApiPayRsp struct {
 	SignBase
-	ErrorResponse
-	MerchantAppId string `json:"merchant_app_id"`
-	OutTradeNo    string `json:"out_trade_no"`
-	TotalAmount   string `json:"total_amount"`
-	PayResult     string `json:"pay_result"`
-	TradeNo       string `json:"trade_no"`
-	ReceiptAmount string `json:"receipt_amount"`
-	PaidAmount    string `json:"paid_amount"`
-	BuyerLogonId  string `json:"buyer_logon_id"`
-	GmtPayment    string `json:"gmt_payment"`
+	CloudSaleErrorResponse
+	Data *struct {
+		MerchantAppId string `json:"merchant_app_id"`
+		OutTradeNo    string `json:"out_trade_no"`
+		TotalAmount   string `json:"total_amount"`
+		PayResult     string `json:"pay_result"`
+		TradeNo       string `json:"trade_no"`
+		ReceiptAmount string `json:"receipt_amount"`
+		PaidAmount    string `json:"paid_amount"`
+		BuyerLogonId  string `json:"buyer_logon_id"`
+		GmtPayment    string `json:"gmt_payment"`
+	} `json:"data"`
 }
 
 type CloudsaleApiPayCancelRsp struct {
 	SignBase
-	ErrorResponse
-	MerchantAppId string `json:"merchant_app_id"`
-	OutTradeNo    string `json:"out_trade_no"`
-	TotalAmount   string `json:"total_amount"`
-	TradeNo       string `json:"trade_no"`
-	ReceiptAmount string `json:"receipt_amount"`
-	PaidAmount    string `json:"paid_amount"`
-	BuyerLogonId  string `json:"buyer_logon_id"`
-	GmtPayment    string `json:"gmt_payment"`
+	CloudSaleErrorResponse
+	Data *struct {
+		MerchantAppId string `json:"merchantAppId"`
+		OutTradeNo    string `json:"outTradeNo"`
+		TotalAmount   string `json:"totalAmount"`
+		TradeNo       string `json:"tradeNo"`
+		ReceiptAmount string `json:"receiptAmount"`
+		PaidAmount    string `json:"paidAmount"`
+		BuyerLogonId  string `json:"buyerLogonId"`
+		GmtPayment    string `json:"gmtPayment"`
+	} `json:"data"`
 }
 
 type CloudsaleApiRefundRsp struct {
 	SignBase
-	ErrorResponse
-
-	MerchantAppId string `json:"merchant_app_id"`
-	OutTradeNo    string `json:"out_trade_no"`
-	SendBackFee   string `json:"send_back_fee"`
-	RefundFee     string `json:"refund_fee"`
+	CloudSaleErrorResponse
+	Data *struct {
+		AppId        string `json:"appId"`
+		BizId        string `json:"bizId"`
+		TradeNo      string `json:"tradeNo"`
+		OutTradeNo   string `json:"outTradeNo"`
+		OutRequestNo string `json:"outRequestNo"`
+		RefundAmount string `json:"refundAmount"`
+		RefundResult string `json:"refundResult"`
+		BuyerLogonId string `json:"buyerLogonId"`
+		BuyerUserId  string `json:"buyerUserId"`
+		RefundFee    string `json:"refundFee"`
+	} `json:"data"`
 }
 
 type CloudsaleApiPayQueryRsp struct {
 	SignBase
-	ErrorResponse
-
-	MerchantAppId string `json:"merchant_app_id"`
-	OutTradeNo    string `json:"out_trade_no"`
-	BizId         string `json:"biz_id"`
-	TradeNo       string `json:"trade_no"`
-	TotalAmount   string `json:"total_amount"`
-	State         string `json:"state"`
-	ReceiptAmount string `json:"receipt_amount"`
-	PaidAmount    string `json:"paid_amount"`
-	UserId        string `json:"user_id"`
-	GmtPayment    string `json:"gmt_payment"`
-	OrderDetail   []struct {
-		TradeNo       string `json:"trade_no"`
-		OrderType     string `json:"order_type"`
-		TotalAmount   string `json:"total_amount"`
-		UserId        string `json:"user_id"`
-		ReceiptAmount string `json:"receipt_amount"`
-		PaidAmount    string `json:"paid_amount"`
-		GmtPayment    string `json:"gmt_payment"`
-	} `json:"order_detail"`
+	CloudSaleErrorResponse
+	Data *struct {
+		MerchantAppId string `json:"merchantAppId"`
+		OutTradeNo    string `json:"outTradeNo"`
+		BizId         string `json:"bizId"`
+		TradeNo       string `json:"tradeNo"`
+		TotalAmount   string `json:"totalAmount"`
+		State         string `json:"state"`
+		ReceiptAmount string `json:"receiptAmount"`
+		PaidAmount    string `json:"paidAmount"`
+		UserId        string `json:"userId"`
+		GmtPayment    string `json:"gmtPayment"`
+		OrderDetail   []struct {
+			TradeNo       string `json:"tradeNo"`
+			OrderType     string `json:"orderType"`
+			TotalAmount   string `json:"totalAmount"`
+			UserId        string `json:"userId"`
+			ReceiptAmount string `json:"receiptAmount"`
+			PaidAmount    string `json:"paidAmount"`
+			GmtPayment    string `json:"gmtPayment"`
+		} `json:"orderDetail"`
+	} `json:"data"`
 }

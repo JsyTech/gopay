@@ -31,6 +31,7 @@ type Client struct {
 	autoSign           bool
 	DebugSwitch        gopay.DebugSwitch
 	location           *time.Location
+	MerchantAppId      string
 }
 
 // 初始化支付宝客户端
@@ -252,6 +253,10 @@ func (a *Client) doAliPay(ctx context.Context, bm gopay.BodyMap, method string, 
 		pubBody.Set("auth_token", at)
 	}
 
+	if a.MerchantAppId != util.NULL {
+		pubBody.Set("merchant_app_id", a.MerchantAppId)
+	}
+
 	if bodyStr != util.NULL {
 		pubBody.Set("biz_content", bodyStr)
 	}
@@ -344,7 +349,7 @@ func (a *Client) doAndParse(ctx context.Context, in gopay.BodyMap, out interface
 		err = a.autoVerifySignByCert(signProvider.GetSign(), signData, signDataErr)
 		return
 	} else {
-		err = fmt.Errorf("in(%T) is not a SignProvider, thus the result is not verified.", in)
+		err = fmt.Errorf("out(%T) is not a SignProvider, thus the result is not verified", out)
 		return
 	}
 }
