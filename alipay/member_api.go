@@ -18,7 +18,9 @@ func (a *Client) UserInfoShare(ctx context.Context, authToken string) (aliRsp *U
 		return nil, errors.New("auth_token can not be null")
 	}
 	var bs []byte
-	if bs, err = a.doAliPay(ctx, nil, "alipay.user.info.share", authToken); err != nil {
+	bm := make(gopay.BodyMap)
+	bm.Set("auth_token", authToken)
+	if bs, err = a.doAliPay(ctx, bm, "alipay.user.info.share"); err != nil {
 		return nil, err
 	}
 	aliRsp = new(UserInfoShareResponse)

@@ -152,3 +152,8 @@ func (a *Client) SetAppAuthToken(appAuthToken string) (client *Client) {
 	a.AppAuthToken = appAuthToken
 	return a
 }
+
+func (a *Client) SetMerchantAppId(merchantAppId string) (client *Client) {
+	a.MerchantAppId = merchantAppId
+	return a
+}
