@@ -228,11 +228,11 @@ func (c *ClientV3) V3ScorePartnerBindService(ctx context.Context, bm gopay.BodyM
 // 商户文档：https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/payscore_partner/chapter9_2.shtml
 func (c *ClientV3) V3ScorePartnerBindServiceQuery(ctx context.Context, outApplyNo string) (wxRsp *ScorePartnerBindServiceQueryRsp, err error) {
 	url := fmt.Sprintf(v3ScorePartnerBindServiceQuery, outApplyNo)
-	authorization, err := c.authorization(MethodPost, url, nil)
+	authorization, err := c.authorization(MethodGet, url, nil)
 	if err != nil {
 		return nil, err
 	}
-	res, si, bs, err := c.doProdGet(ctx, v3ScorePartnerBindServiceQuery, authorization)
+	res, si, bs, err := c.doProdGet(ctx, url, authorization)
 	if err != nil {
 		return nil, err
 	}
