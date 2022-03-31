@@ -294,7 +294,7 @@ func (a *Client) doAliPay(ctx context.Context, bm gopay.BodyMap, method string, 
 			return nil, err
 		}
 		if a.DebugSwitch == gopay.DebugOn {
-			xlog.Debugf("Alipay_Response: %s%d %s%s", xlog.Red, res.StatusCode, xlog.Reset, string(bs))
+			xlog.Debugf("Alipay_Response: reqUrl: %s, %s%d %s%s", url, xlog.Red, res.StatusCode, xlog.Reset, string(bs))
 		}
 		if res.StatusCode != 200 {
 			return nil, fmt.Errorf("HTTP Request Error, StatusCode = %d", res.StatusCode)
