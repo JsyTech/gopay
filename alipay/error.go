@@ -28,7 +28,7 @@ type CloudSaleErrorResponse struct {
 }
 
 func (e *CloudSaleErrorResponse) Error() string {
-	return fmt.Sprintf(`{"code": "%s","msg": "%s","sub_code": "%s","sub_msg": "%s"}`, e.Code, e.Msg, e.SubCode, e.SubMsg)
+	return fmt.Sprintf(`{"code": "%d","msg": "%s","sub_code": "%s","sub_msg": "%s"}`, e.Code, e.Msg, e.SubCode, e.SubMsg)
 }
 
 func (e *CloudSaleErrorResponse) CodeSucceed() bool {
