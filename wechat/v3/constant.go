@@ -263,6 +263,9 @@ const (
 	v3BanksCorporateBanking = "/v3/capital/capitallhh/banks/corporate-banking" // 查询支持对公业务的银行列表 GET
 	v3BanksBranches         = "/v3/capital/capitallhh/banks/%s/branches"       // 查询支行列表 GET
 
+	// 用户信息
+	v3FacemchUsers = "/v3/facemch/users/%s" // 获取用户Unionid
+
 	// 特约商户进件申请单状态
 	ApplyStateEditing       = "APPLYMENT_STATE_EDITTING"        // 编辑中
 	ApplyStateAuditing      = "APPLYMENT_STATE_AUDITING"        // 审核中

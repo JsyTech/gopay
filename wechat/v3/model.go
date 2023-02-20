@@ -2833,3 +2833,15 @@ type BanksBranchesRsp struct {
 	Response *BanksBranches `json:"response,omitempty"`
 	Error    string         `json:"-"`
 }
+
+// 获取用户Unionid
+type FacemchUsersRsp struct {
+	Code     int           `json:"-"`
+	SignInfo *SignInfo     `json:"-"`
+	Response *FacemchUsers `json:"response,omitempty"`
+	Error    string        `json:"-"`
+}
+
+type FacemchUsers struct {
+	UnionId string `json:"union_id"`
+}
