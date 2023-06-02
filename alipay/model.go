@@ -2088,6 +2088,7 @@ type CloudSaleApiPayRsp struct {
 		PaidAmount    string `json:"paid_amount"`
 		BuyerLogonId  string `json:"buyer_logon_id"`
 		GmtPayment    string `json:"gmt_payment"`
+		SubMsg        string `json:"sub_msg"`
 	} `json:"data"`
 }
 
